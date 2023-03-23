@@ -29,13 +29,18 @@ Tse_initial = np.array([[0, 1, 0, 247],
 #                     [0, -1, 0, 237.0000],
 #                     [0, 0, 0, 1]])
 
-Tsc_initial = np.array([[1, 0, 0, 450],
-                    [0, 1, 0, -300],
+offset = np.array([[0.7071, 0.7071, 0, 25],
+                    [0, 1, 0, 0],
+                    [-0.7071, 0, 0.7071, 25],
+                    [0, 0, 0, 1]])
+
+Tsc_initial = np.array([[1, 0, 0, 550],
+                    [0, 1, 0, -400],
                     [0, 0, 1, 0],
                     [0, 0, 0, 1]])
 
 Tsc_final = np.array([[0, -1, 0, 0],
-                    [1, 0, 0, 100],
+                    [1, 0, 0, 125],
                     [0, 0, 1, 0],
                     [0, 0, 0, 1]])
 
@@ -58,7 +63,7 @@ max_velos = np.array([10000*pi,10000*pi,10000*pi,10000*pi,10000*pi,10000*pi])
 pose_trajectory , gripper_trajectory = trajectoryGenerator(Tse_initial, Tsc_initial, Tsc_final, Tce_grasp, Tce_standoff, N)
 
 # initial Tse
-Tse = pose_trajectory[0,...]
+Tse = pose_trajectory[0,...] @ offset
 
 # trajectory log
 Tse_trajectory = np.zeros((pose_trajectory.shape[0],4,4))
@@ -80,8 +85,8 @@ position_trajectory[0,:]=position
 
 MODE = 0
 if MODE == 0: 
-    kp = 10
-    ki = 1
+    kp = 15
+    ki = 50
 elif MODE == 1:
     kp = 1000
     ki = 50

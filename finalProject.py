@@ -72,7 +72,7 @@ dt = 0.01
 # initial joint angles
 
 # generated from inverseKinematics.py
-position = np.array([0.0012750106140693163, 4.711381176104732, 0.0029464399820895437, 4.710450344682556, 4.711113969770621, 0.0])
+position = np.array([0.0012750106140693163, -1.5718041310748543, 0.0029464399820895437, -1.5727349624970302, -1.572071337408965, 0.0])
 # position = np.array([-pi/6, -pi/2, pi/2, -pi/2, -pi/2, 5 * pi/6])
 position_trajectory = np.zeros((pose_trajectory.shape[0],6))
 position_trajectory[0,:]=position
@@ -80,7 +80,7 @@ position_trajectory[0,:]=position
 
 MODE = 0
 if MODE == 0: 
-    kp = 1
+    kp = 10
     ki = 1
 elif MODE == 1:
     kp = 1000

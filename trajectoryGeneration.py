@@ -17,8 +17,8 @@ def SE3Flattened(T):
                     [1, 0, 0, -169],
                     [0, 0, -1, 782],
                     [0, 0, 0, 1]])
-    Output
-        0.00,1.00,0.00,1.00,0.00,0.00,0.00,0.00,-1.00,247.00,-169.00,782.00,0.00 
+    Output:
+    array([0.00,1.00,0.00,1.00,0.00,0.00,0.00,0.00,-1.00,247.00,-169.00,782.00,0.00]) 
     '''
     # decompose
     R = T[:3, :3]
@@ -126,7 +126,7 @@ def trajectoryGenerator(Tse_initial, Tsc_initial, Tsc_final, Tce_grasp, Tce_stan
 
     whole_trajectory = first_trajectory + second_trajectory + \
         third_trajectory + fourth_trajectory + fifth_trajectory + final_trajectory
-
+    # gripper is the same during the entire trajectory segment
     gripper_state_1 = [0]*N
     gripper_state_2 = [0]*N
     gripper_state_3 = [1]*N
@@ -148,7 +148,7 @@ def turnTrajectoryIntoCSV(pose_trajectory, gripper_trajectory, filename="element
         pose_trajectory: 3d numpy array of poses to be converted
         gripper_trajectory: 1D numpy array of gripper values of the same size as the
                             first dimension of pose_trajectory
-        filename: name of csv file to be written to
+        filename: name of csv file to be written to (DEFAULT:"elements.csv")
 
     Outputs: None
         *writes to a file given by filename parameter

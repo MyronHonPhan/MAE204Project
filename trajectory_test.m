@@ -15,7 +15,7 @@ xmax = 600;
 ymin = -400;
 ymax = 200;
 zmin = 0;
-zmax = 400;
+zmax = 900;
 % Camera rotation (degrees)
 camera_xyrotation = 120;
 camera_elevation = 30;
@@ -68,20 +68,21 @@ for i = 1:traj_len
 %     i = j*plotSample;
     % Extract SE(3) components from .csv
     i
-    r11 = traj(i,1); r12 = traj(i,2); r13 = traj(i,3);
-    r21 = traj(i,4); r22 = traj(i,5); r23 = traj(i,6);
-    r31 = traj(i,7); r32 = traj(i,8); r33 = traj(i,9);
-    px = traj(i,10); py = traj(i,11); pz = traj(i,12);
+    if mod(i,50) == 0
+        r11 = traj(i,1); r12 = traj(i,2); r13 = traj(i,3);
+        r21 = traj(i,4); r22 = traj(i,5); r23 = traj(i,6);
+        r31 = traj(i,7); r32 = traj(i,8); r33 = traj(i,9);
+        px = traj(i,10); py = traj(i,11); pz = traj(i,12);
 
-    % Create x, y, z axs for e-e frame
-    quiver3(px,py,pz,r11,r21,r31,scale,'r','LineWidth',arrowWidth)
-    quiver3(px,py,pz,r12,r22,r32,scale,'b','LineWidth',arrowWidth)
-    quiver3(px,py,pz,r13,r23,r33,scale,'g','LineWidth',arrowWidth)
-    f = getframe(gcf);
-    writeVideo(obj,f);
+        % Create x, y, z axs for e-e frame
+        quiver3(px,py,pz,r11,r21,r31,scale,'r','LineWidth',arrowWidth)
+        quiver3(px,py,pz,r12,r22,r32,scale,'b','LineWidth',arrowWidth)
+        quiver3(px,py,pz,r13,r23,r33,scale,'g','LineWidth',arrowWidth)
+        f = getframe(gcf);
+        writeVideo(obj,f);
 
-    pause(timestep)
-    
+        pause(timestep)
+    end
     
 end
 hold off

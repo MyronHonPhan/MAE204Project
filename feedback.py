@@ -41,7 +41,7 @@ def feedback(Tse, Tse_d, Tse_d_next, kp, ki, dt):
     return endEffectorTwist
 
 def retrieveJointVelocities(JacobianEndEffector, TwistEndEffector):
-    return np.linalg.pinv(JacobianEndEffector) @ TwistEndEffector
+    return np.linalg.pinv(JacobianEndEffector, rcond=1e-5) @ TwistEndEffector
 
 ################ TESTING ###################
 

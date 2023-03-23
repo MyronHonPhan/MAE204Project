@@ -66,10 +66,10 @@ def finalProject(MODE):
                         [0, 1, 0, -300],
                         [0, 0, 1, 0],
                         [0, 0, 0, 1]])
-        position = np.array([0.0012750106140693163, -1.5718041310748543, 0.0029464399820895437, -1.5727349624970302, -1.572071337408965, 0.0])
+        position = np.array([0.0012750106140693163, -1.5718041310748543, pi/6, -1.5727349624970302, -1.572071337408965, 0.0])
     elif MODE == 1:
         # overshoot
-        kp = 5
+        kp = 4
         ki = 0
         Tsc_final = np.array([[0, -1, 0, 0],
                         [1, 0, 0, 100],
@@ -81,7 +81,7 @@ def finalProject(MODE):
                         [0, 0, 1, 0],
                         [0, 0, 0, 1]])
         
-        position = np.array([0.0012750106140693163, -1.5718041310748543, 0.0029464399820895437, -1.5727349624970302, -1.572071337408965, 0.0])
+        position = np.array([0.0012750106140693163, -1.5718041310748543, pi/6 , -1.5727349624970302, -1.572071337408965, 0.0])
     else:
         # new test case
         Tsc_initial = np.array([[1, 0, 0, 550],
@@ -142,13 +142,34 @@ def finalProject(MODE):
         Tse_trajectory[i+1,...] = Tse
         ErrorTwist_trajectory[i,...] = TwistEndEffector
         
-        error = np.abs(np.linalg.norm(Tse_d_next[:3,3]-Tse[:3,3]))
+        error = np.abs(np.linalg.norm(Tse_d_next.flatten()-Tse.flatten()))
         error_trajectory[i,:] = error
         if i % 50 == 0:
             pass
 
     plt.figure(1)
     plt.plot(error_trajectory)
+    plt.xlabel("Iteration number")
+    plt.ylabel("Frobenius Norm of Difference Error")
+    plt.title("Best Case: Frobenius Norm of Difference Error VS Iteration Number")
+    plt.show()
+    plt.figure(2)
+    plt.plot(ErrorTwist_trajectory[:,0])
+    plt.plot(ErrorTwist_trajectory[:,1])
+    plt.plot(ErrorTwist_trajectory[:,2])
+    plt.legend(["E_Rx","E_Ry","E_Rz"])
+    plt.xlabel("Iteration number")
+    plt.ylabel("Twist Error")
+    plt.title("Best Case: Error Angular Twist VS Iteration Number")
+    plt.show()
+    plt.figure(3)
+    plt.plot(ErrorTwist_trajectory[:,3])
+    plt.plot(ErrorTwist_trajectory[:,4])
+    plt.plot(ErrorTwist_trajectory[:,5])
+    plt.legend(["E_x","E_y","E_z"])
+    plt.xlabel("Iteration number")
+    plt.ylabel("Linear Error")
+    plt.title("Best Case: Error Linear Twist VS Iteration Number")
     plt.show()
     
     data = np.hstack((position_trajectory, gripper_trajectory[:,None]))
@@ -166,6 +187,6 @@ def new_task_case():
 
 if __name__ == "__main__":
     print("u the goat")
-    new_task_case()
-    #overshoot_case()
-    #new_task_case()
+    # best_case() 
+    overshoot_case()
+    # new_task_case()

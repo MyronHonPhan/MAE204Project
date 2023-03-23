@@ -72,7 +72,7 @@ Tse_trajectory[0,...] = Tse
 ErrorTwist_trajectory[0,...] = np.zeros((6,))
 error_trajectory = np.zeros((pose_trajectory.shape[0]-1,3))
 
-dt = 0.01
+DT = 0.01
 
 # initial joint angles
 
@@ -113,12 +113,12 @@ def finalProject(Tse, position, position_trajectory, error_trajectory, ErrorTwis
         Tse_d_next = pose_trajectory[i+1,...]
 
         # calculate error twist, end effector jacobian and then joint velocities at time i
-        TwistEndEffector = feedback(Tse, Tse_d, Tse_d_next, kp, ki, dt)
+        TwistEndEffector = feedback(Tse, Tse_d, Tse_d_next, kp, ki, DT)
         JacobianEndEffector = calculateJacobianBody(Slist, position, Tse)
         JointVelocities = retrieveJointVelocities(JacobianEndEffector, TwistEndEffector)
         
         # calculate next state and compute forward dynamics for new configuration
-        position = nextState(position, JointVelocities, dt, max_velos)
+        position = nextState(position, JointVelocities, DT, max_velos)
         position_trajectory[i+1,:] = position
         Tse = mr.FKinSpace(M, Slist, position)
         
@@ -133,6 +133,18 @@ def finalProject(Tse, position, position_trajectory, error_trajectory, ErrorTwis
 
     plt.figure(1)
     plt.plot(error_trajectory)
+    plt.show()
+    plt.figure()
+    plt.plot(ErrorTwist_trajectory[:,0])
+    plt.plot(ErrorTwist_trajectory[:,1])
+    plt.plot(ErrorTwist_trajectory[:,2])
+    plt.legend(["E_Rx","E_Ry","E_Rz"])
+    plt.show()
+    plt.figure()
+    plt.plot(ErrorTwist_trajectory[:,3])
+    plt.plot(ErrorTwist_trajectory[:,4])
+    plt.plot(ErrorTwist_trajectory[:,5])
+    plt.legend(["E_x","E_y","E_z"])
     plt.show()
     
     data = np.hstack((position_trajectory, gripper_trajectory[:,None]))

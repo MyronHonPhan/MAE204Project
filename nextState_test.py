@@ -4,7 +4,7 @@ if __name__=="__main__":
     PI = np.pi
     t_step = 0.01
     position = np.array([-PI/6,-PI/2,PI/2,-PI/2,-PI/2,5*PI/6])
-    const_velo = np.array([PI/2,PI/2,PI/2,PI/2,PI/2,PI/2])
+    const_velo = np.array([PI/2,0,0,0,0,PI])
     max_velos = np.array([PI,PI,PI,PI,PI,PI])
     with open('next_state_joint_angs.csv','w') as csv_file:
         for _ in range(100):

@@ -48,6 +48,11 @@ def finalProject(MODE):
 
     Output: None
         *writes joint angles to file called 'TESTNAME_finalProject.csv'
+        
+    Example uses:
+        finalProject(1)
+        Runs the best case scenario and pop up plots of error one at a time
+        It will also create a csv file with joint angles
     '''
     # original position of the end effector
     Tse_initial = np.array([[0, 1, 0, 247],

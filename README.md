@@ -1,1 +1,3 @@
 # MAE204Project
+
+From the terminal, all you have to do to run our project is run `python3 finalProject.py` which will run all three cases. The result of this will be for the error plots to show up one by one, and you must cancel out of one to see the next. After it has shown all the error plots for one case, it will write the case to a csv file, then do the same for the next case. These csv files of joint angles can be uploaded to the Gazebo simulation to see it work. You must change the position of the cube in Gazebo to reflect the start position of the cube in out simulation. 

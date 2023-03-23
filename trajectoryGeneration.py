@@ -80,17 +80,17 @@ def trajectoryGenerator(Tse_initial, Tsc_initial, Tsc_final, Tce_grasp, Tce_stan
     N = 10
 
     Output:
-    whole trajectory:
-        array([[   0.    ,    0.    ,    1.    ,  323.5756],
-        [  -1.    ,    0.    ,    0.    , -335.5507],
-        [   0.    ,   -1.    ,    0.    ,  237.    ],
-        [   0.    ,    0.    ,    0.    ,    1.    ]])
-        ...
-        ...
-        array([[  1.,   0.,   0.,   0.],
-        [  0.,   0.,   1., 100.],
-        [  0.,  -1.,   0.,  70.],
-        [  0.,   0.,   0.,   1.]])   
+        whole trajectory:
+            array([[   0.    ,    0.    ,    1.    ,  323.5756],
+            [  -1.    ,    0.    ,    0.    , -335.5507],
+            [   0.    ,   -1.    ,    0.    ,  237.    ],
+            [   0.    ,    0.    ,    0.    ,    1.    ]])
+            ...
+            ...
+            array([[  1.,   0.,   0.,   0.],
+            [  0.,   0.,   1., 100.],
+            [  0.,  -1.,   0.,  70.],
+            [  0.,   0.,   0.,   1.]])   
     gripper trajectory:
         array([0,0,0,0,0,0,0,0,0,0,....1,1,1,1,1,1,1,1,1,1,...,0,0,0,0,0,0,0,0,0,0])    
     '''
@@ -152,6 +152,13 @@ def turnTrajectoryIntoCSV(pose_trajectory, gripper_trajectory, filename="element
 
     Outputs: None
         *writes to a file given by filename parameter
+        
+    Example use:
+        pose_trajectory, gripper_trajectory = trajectoryGenerator(...)
+        turnTrajectoryIntoCSV(pose_trajectory, gripper_trajectory,"testfile.csv")
+        
+        This will write your trajectory to a file called testfile.csv
+        
     '''
     for i in range(pose_trajectory.shape[0]):
         # flatten them into rows
